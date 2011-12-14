@@ -67,6 +67,7 @@ std::istream& operator>>(std::istream& is, http_response& r)
 	}
 	else
 		std::copy(std::istreambuf_iterator<char>(is), std::istreambuf_iterator<char>(), std::back_inserter(r.body));
+
 	return is;
 }
 

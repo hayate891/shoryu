@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+#include <vector>
+
 #include <boost/asio.hpp>
 #include <boost/regex.hpp>
-#include <boost/algorithm/string.hpp>
-#include <vector>
+#include <boost/algorithm/string/trim.hpp>
 #include <boost/bind.hpp>
 #include <boost/array.hpp>
 #include <boost/thread/mutex.hpp>
@@ -41,12 +42,7 @@ public:
 
 	static const size_t buffer_size = 1500;
 
-	discover(boost::asio::io_service& io_service)
-		: _socket(io_service, endpoint_type(protocol::v4(), 0))
-	{
-		_streambuf.commit(1);
-		_streambuf.consume(1);
-	}
+	discover(boost::asio::io_service& io_service) : _socket(io_service) {}
 
 	template<typename DeviceType>
 	void discover_async(std::function<bool(const boost::system::error_code&, DeviceType&)> handler)
@@ -54,18 +50,18 @@ public:
 		cancel();
 
 		static const endpoint_type multicast_endpoint = endpoint_type(address_type::from_string("239.255.255.250"), 1900);
-		
+		_socket.open(protocol::v4());
+		_socket.bind(endpoint_type(protocol::v4(), 0));
 		_socket.async_send_to(boost::asio::buffer(discovery_msg, sizeof(discovery_msg)),
 			multicast_endpoint, [](const boost::system::error_code&, size_t){});
 
-		_socket.async_receive(boost::asio::buffer(_streambuf.prepare(buffer_size)),
-				boost::bind(&discover::device_discovery<DeviceType>, this,
-				boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, handler));
+		async_receive(handler);
 	}
 	void cancel()
 	{
 		boost::mutex::scoped_lock lock(_cancel_mutex);
-		_socket.cancel();
+		if(_socket.is_open())
+			_socket.close();
 	}
 protected:
 	template <typename DeviceType>
@@ -100,6 +96,11 @@ protected:
 			}
 			_streambuf.consume(bytes_received);
 		}
+		async_receive(handler);
+	}
+	template<typename DeviceType>
+	void async_receive(std::function<bool(const boost::system::error_code&, DeviceType&)> handler)
+	{
 		_socket.async_receive(boost::asio::buffer(_streambuf.prepare(buffer_size)),
 			boost::bind(&discover::device_discovery<DeviceType>, this,
 			boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, handler));
