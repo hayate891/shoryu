@@ -1,14 +1,16 @@
-#include "http/url.hpp"
+#pragma once
+#include "url.hpp"
 
 namespace net
 {
+
 template<typename RequestType>
 typename RequestType::response_type execute_request(const RequestType& request)
 {
 	typedef typename RequestType::response_type response_type;
 	typedef typename boost::asio::ip::tcp::iostream iostream;
 
-	const http::url& url = request.url;
+	const url& url = request.url;
 	std::string port = url.port ? boost::lexical_cast<std::string>(url.port) : url.protocol;
 	iostream stream(url.host, port);
 	if(!stream)
@@ -21,4 +23,5 @@ typename RequestType::response_type execute_request(const RequestType& request)
 	else
 		throw std::exception();
 }
+
 }

@@ -6,15 +6,13 @@
 
 namespace net
 {
-namespace http
-{
 
 struct http_request
 {
 	typedef http_response response_type;
+	url url;
 
 	std::string method;
-	url url;
 	parameter_map get;
 	parameter_map post;
 	parameter_map headers;
@@ -40,5 +38,4 @@ std::ostream& operator<<(std::ostream& o, const http_request& r)
 	return o;
 }
 
-}
 }

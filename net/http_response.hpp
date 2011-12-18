@@ -9,8 +9,6 @@
 
 namespace net
 {
-namespace http
-{
 
 struct http_response
 {
@@ -71,5 +69,4 @@ std::istream& operator>>(std::istream& is, http_response& r)
 	return is;
 }
 
-}
 }

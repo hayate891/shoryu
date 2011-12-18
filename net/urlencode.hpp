@@ -1,8 +1,8 @@
+#pragma once
+
 #include <string>
 
 namespace net
-{
-namespace http
 {
 
 //http://blooberry.com/indexdot/html/topics/urlencoding.htm
@@ -18,5 +18,4 @@ std::string urldecode(const std::string& str)
 	return str;
 }
 
-}
 }

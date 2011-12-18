@@ -9,15 +9,13 @@
 #include <boost/array.hpp>
 #include <boost/thread/mutex.hpp>
 
-#include "../pugixml/pugixml.hpp"
-#include "../http/http_response.hpp"
-#include "../http/http_request.hpp"
-#include "../http/url.hpp"
-#include "../execute_request.hpp"
+#include "pugixml/pugixml.hpp"
+#include "http_response.hpp"
+#include "http_request.hpp"
+#include "url.hpp"
+#include "execute_request.hpp"
 
 namespace net
-{
-namespace upnp
 {
 
 namespace
@@ -73,15 +71,15 @@ protected:
 		{
 			_streambuf.commit(bytes_received);
 			std::istream is(&_streambuf);
-			http::http_response response;
+			http_response response;
 			if(is >> response)
 			{
 				auto it = response.headers.find("location");
 				if(it != response.headers.end())
 				{
-					http::url base_url = boost::trim_copy(it->second);
-					http::http_request req = {"GET", base_url };
-					if(http::http_response res = execute_request(req))
+					url base_url = boost::trim_copy(it->second);
+					http_request req = { base_url, "GET" };
+					if(http_response res = execute_request(req))
 					{
 						pugi::xml_document xml_doc;
 						pugi::xml_parse_result result = xml_doc.load_buffer_inplace((char*)res.body.data(), res.body.length());
@@ -110,5 +108,4 @@ protected:
 	boost::mutex _cancel_mutex;
 };
 
-}
 }

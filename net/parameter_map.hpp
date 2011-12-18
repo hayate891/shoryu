@@ -5,8 +5,6 @@
 
 namespace net
 {
-namespace http
-{
 
 //move this to /detail
 namespace
@@ -47,5 +45,4 @@ std::ostream& operator<<(std::ostream& o, const parameter_map& pm)
 	return o;
 }
 
-}
 }
