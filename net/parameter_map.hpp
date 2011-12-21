@@ -34,6 +34,8 @@ struct ihash: std::unary_function<std::string, std::size_t>
 
 class parameter_map : public boost::unordered_map<std::string, std::string, ihash, iequal_to>{};
 
+//TODO: operator>> param_map
+
 std::ostream& operator<<(std::ostream& o, const parameter_map& pm)
 {
 	for(auto it = pm.begin(); it != pm.end();)

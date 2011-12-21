@@ -3,6 +3,8 @@
 #include "discover.hpp"
 #include "inet_gateway.hpp"
 
+// TODO: NAT hole punchthrough functionality
+
 int main()
 {
 	boost::asio::io_service ios;

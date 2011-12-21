@@ -23,6 +23,7 @@ struct url
 	{
 		// TODO: refactoring, parse login, password, host etc
 		// cannot parse "http://192.168.0.2:80" (empty path)
+		// use static regexps
 		static const boost::regex with_port("([a-z]+)://([^/]+):(\\d+)(/.*)");
 		static const boost::regex without_port("([a-z]+)://([^/]+)(/.*)");
 		static const boost::regex relative_path("/.*");

@@ -25,7 +25,6 @@ namespace
 		"ST:upnp:rootdevice\r\n"
 		"MAN:\"ssdp:discover\"\r\n"
 		"MX:3\r\n\r\n";
-
 }
 
 class discover

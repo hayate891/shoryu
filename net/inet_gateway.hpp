@@ -23,6 +23,8 @@ struct port_mapping
 };
 
 // Internet gateway device is an UPNP device for port-forwarding
+
+
 struct inet_gateway
 {
 	typedef url url;

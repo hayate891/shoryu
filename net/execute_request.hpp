@@ -3,7 +3,7 @@
 
 namespace net
 {
-
+// TODO: write accept<RequestType>() method - useful for servers (using iostream+acceptor)
 template<typename RequestType>
 typename RequestType::response_type execute_request(const RequestType& request)
 {

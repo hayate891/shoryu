@@ -18,6 +18,10 @@ struct http_request
 	parameter_map headers;
 	std::string body;
 };
+// TODO: operator>> http_request
+// TODO: http-authorization - add method authorization(const std::string& user, const std::string& pass)
+// TODO: https
+
 std::ostream& operator<<(std::ostream& o, const http_request& r)
 {
 	o << r.method << " " << r.url.path;

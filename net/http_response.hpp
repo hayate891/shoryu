@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <boost/regex.hpp>
+#include <boost/xpressive/xpressive.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -20,6 +20,10 @@ struct http_response
 
 	operator void const*() const { return status_code == 200 ? this : 0; }
 };
+// TODO: operator<<http_response
+// TODO: http-authorization - add method require_authorization(const std::string& realm)
+// TODO: https
+
 std::istream& operator>>(std::istream& is, http_response& r)
 {
 	r.status_code = 0;
@@ -29,9 +33,12 @@ std::istream& operator>>(std::istream& is, http_response& r)
 		is.setstate(std::ios::failbit);
 		return is;
 	}
-	static const boost::regex http_status_regex("HTTP/(\\d\\.\\d) (\\d+) (.+)");
-	boost::smatch m;
-	if(boost::regex_match(line, m, http_status_regex, boost::match_extra))
+	
+	using namespace boost::xpressive;
+	//^HTTP/(\\d\\.\\d) (\\d+) (.+)
+	sregex http_status_regex = bos >> "HTTP/" >> (s1= _d >> '.' >> _d) >> _s >> (s2= +_d) >> _s >> (s3= +_) >> eos;
+	smatch m;
+	if(boost::xpressive::regex_match(line, m, http_status_regex))
 	{
 		r.http_ver = m[1];
 		r.status_code = boost::lexical_cast<int>(m[2]);
@@ -48,8 +55,9 @@ std::istream& operator>>(std::istream& is, http_response& r)
 		boost::trim(line);
 		if(line.length())
 		{
-			static const boost::regex http_status_regex("([^:]+):\\s*(.*)");
-			if(boost::regex_match(line, m, http_status_regex, boost::match_extra))
+			//^([^:]+):\\s*(.*)$
+			sregex header_regex = bos >> (s1= +~(set= ':')) >> ':' >> *_s >> (s2= +_) >> eos;
+			if(boost::xpressive::regex_match(line, m, header_regex))
 				r.headers[m[1]] = m[2];
 		}
 		else
