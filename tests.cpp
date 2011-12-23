@@ -26,8 +26,8 @@ BOOST_AUTO_TEST_SUITE( net )
 			std::string ip;
 			BOOST_REQUIRE(device.get_internal_ip(ip));
 			mapping.internal_client = ip;
-			BOOST_REQUIRE(!device.add(mapping));
-			return false;
+			BOOST_REQUIRE(device.add(mapping));
+			return true;
 		} );
 		ios.run();
 	}
