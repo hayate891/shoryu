@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ne", "net\net.vcxproj", "{81CC50E6-93B5-4FB5-991C-D11B99D12D87}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxproj", "{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "net", "net.vcxproj", "{C17A0932-0883-44D4-A918-FC62FC1421E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{81CC50E6-93B5-4FB5-991C-D11B99D12D87}.Debug|Win32.ActiveCfg = Debug|Win32
-		{81CC50E6-93B5-4FB5-991C-D11B99D12D87}.Debug|Win32.Build.0 = Debug|Win32
-		{81CC50E6-93B5-4FB5-991C-D11B99D12D87}.Release|Win32.ActiveCfg = Release|Win32
-		{81CC50E6-93B5-4FB5-991C-D11B99D12D87}.Release|Win32.Build.0 = Release|Win32
-		{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}.Debug|Win32.Build.0 = Debug|Win32
-		{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}.Release|Win32.ActiveCfg = Release|Win32
-		{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}.Release|Win32.Build.0 = Release|Win32
+		{C17A0932-0883-44D4-A918-FC62FC1421E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C17A0932-0883-44D4-A918-FC62FC1421E1}.Debug|Win32.Build.0 = Debug|Win32
+		{C17A0932-0883-44D4-A918-FC62FC1421E1}.Release|Win32.ActiveCfg = Release|Win32
+		{C17A0932-0883-44D4-A918-FC62FC1421E1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@
 
 namespace net
 {
-
+// TODO: remove 'body' property and rename to http_request_header
 struct http_request
 {
 	typedef http_response response_type;

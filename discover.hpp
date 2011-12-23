@@ -1,12 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>
 
 #include <boost/asio.hpp>
-#include <boost/regex.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/bind.hpp>
-#include <boost/array.hpp>
 #include <boost/thread/mutex.hpp>
 
 #include "pugixml/pugixml.hpp"

@@ -9,7 +9,7 @@
 
 namespace net
 {
-
+// TODO: remove 'body' property and rename to http_responce_header
 struct http_response
 {
 	std::string http_ver;

@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F71C9E01-DD03-44D1-A49B-5735E6FA6EE0}</ProjectGuid>
-    <RootNamespace>tests</RootNamespace>
+    <ProjectGuid>{C17A0932-0883-44D4-A918-FC62FC1421E1}</ProjectGuid>
+    <RootNamespace>net</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -44,6 +44,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>main</EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -60,6 +62,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="discover.hpp" />
+    <ClInclude Include="execute_request.hpp" />
+    <ClInclude Include="http_request.hpp" />
+    <ClInclude Include="http_response.hpp" />
+    <ClInclude Include="inet_gateway.hpp" />
+    <ClInclude Include="parameter_map.hpp" />
+    <ClInclude Include="pugixml\pugiconfig.hpp" />
+    <ClInclude Include="pugixml\pugixml.hpp" />
+    <ClInclude Include="upnp_request.hpp" />
+    <ClInclude Include="upnp_response.hpp" />
+    <ClInclude Include="url.hpp" />
+    <ClInclude Include="urlencode.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pugixml\pugixml.cpp" />
     <ClCompile Include="tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

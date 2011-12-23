@@ -8,7 +8,6 @@
 
 namespace net
 {
-
 struct upnp_request
 {
 	typedef upnp_response response_type;

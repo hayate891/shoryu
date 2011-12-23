@@ -6,7 +6,7 @@
 namespace net
 {
 
-//move this to /detail
+// TODO: move this to /detail
 namespace
 {
 struct iequal_to: std::binary_function<std::string, std::string, bool>
@@ -34,7 +34,6 @@ struct ihash: std::unary_function<std::string, std::size_t>
 
 class parameter_map : public boost::unordered_map<std::string, std::string, ihash, iequal_to>{};
 
-//TODO: operator>> param_map
 
 std::ostream& operator<<(std::ostream& o, const parameter_map& pm)
 {
@@ -46,5 +45,9 @@ std::ostream& operator<<(std::ostream& o, const parameter_map& pm)
 	}
 	return o;
 }
-
+//TODO: operator>> param_map
+std::istream& operator>>(std::istream& is, parameter_map& pm)
+{
+	return is;
+}
 }
