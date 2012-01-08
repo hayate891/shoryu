@@ -7,6 +7,8 @@
 BOOST_AUTO_TEST_SUITE( net )
 	BOOST_AUTO_TEST_CASE( test_local_router )
 	{
+		std::string value = net::urlencode<GenericFilter>("àáûðvalg!+");
+
 		boost::asio::io_service ios;
 		using namespace net;
 		discover d(ios);

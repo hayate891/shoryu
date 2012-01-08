@@ -39,7 +39,7 @@ std::ostream& operator<<(std::ostream& o, const parameter_map& pm)
 {
 	for(auto it = pm.begin(); it != pm.end();)
 	{
-		o << it->first << "=" << urlencode(it->second);
+		o << it->first << "=" << urlencode<GenericFilter>(it->second);
 		if(++it != pm.end())
 			o << "&";
 	}
