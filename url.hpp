@@ -8,18 +8,26 @@
 namespace net
 {
 
+class invalid_url : public std::exception
+{
+public:
+	invalid_url() throw() : std::exception("invalid url", 1){}
+};
+
 struct url
 {
 	url() : protocol("http"), path("/"), port(0) {}
 	url(const char* ptr) : protocol("http"), path("/"), port(0)
 	{
-		parse(std::string(ptr));
+		if(!parse(std::string(ptr)))
+			throw invalid_url();
 	}
 	url(const std::string& _url) : protocol("http"), path("/"), port(0) 
 	{
-		parse(_url);
+		if(!parse(_url))
+			throw invalid_url();
 	}
-	void parse(const std::string& _url)
+	bool parse(const std::string& _url)
 	{
 		using namespace boost::xpressive;
 		mark_tag _protocol(1);
@@ -40,13 +48,17 @@ struct url
 		sregex url_regex = 
 			bos >>
 			!(
-				(_protocol= +protocol_chars) >> ':' >> repeat<2>('/') >>
+				!(
+					(_protocol= +protocol_chars) >> ':' >> repeat<2>('/')
+				) >>
 				!(
 					(_user= +safe_chars) >> 
 					!(':' >> (_password= *safe_chars) ) >> '@'
 				) >>
-				!(_host= +label_chars >> *('.' >> +label_chars) ) >>
-				!(':' >> (_port= +_d))
+				!(
+					(_host= +label_chars >> *('.' >> +label_chars)) >>
+					!(':' >> (_port= +_d))
+				)
 			) >>
 			!(_path= '/' >> *path_chars ) >> 
 			!( '?' >> (_params= *params_chars) ) >>
@@ -68,9 +80,15 @@ struct url
 			else
 				port = 0;
 			path = m[_path];
-			//params = boost::lexical_cast<parameter_map>(m[_params]);
+			if(m[_params].length())
+				params = boost::lexical_cast<parameter_map>(m[_params]);
+			else
+				params.clear();
 			anchor = m[_anchor];
 		}
+		else
+			return false;
+		return true;
 	}
 
 	std::string protocol;
@@ -83,16 +101,26 @@ struct url
 	std::string anchor;
 };
 
-std::ostream& operator<<(std::ostream& o, const url& u)
+std::ostream& operator<<(std::ostream& os, const url& url)
 {
-	if(u.host.length())
+	if(url.host.length())
 	{
-		o << u.protocol << "://" << u.host;
-		if(u.port != 0)
-			o << ":" << u.port;
+		if(url.protocol.length())
+			os << url.protocol << "://";
+		os << url.host;
+		if(url.port != 0)
+			os << ":" << url.port;
 	}
-	o << u.path;
-	return o;
+	os << url.path;
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, url& url_)
+{
+	std::string str;
+	if(is >> str)
+		url_ = url(str);
+	return is;
 }
 
 }

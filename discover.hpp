@@ -51,6 +51,7 @@ public:
 
 		async_receive(handler);
 	}
+	// TODO: make cancel() non-blocking!
 	void cancel()
 	{
 		boost::mutex::scoped_lock lock(_cancel_mutex);
@@ -75,7 +76,8 @@ protected:
 				{
 					url base_url = boost::trim_copy(it->second);
 					http_request req = { base_url, "GET" };
-					if(http_response res = execute_request(req))
+					http_response res;
+					if(execute_request(req, res) && res)
 					{
 						pugi::xml_document xml_doc;
 						pugi::xml_parse_result result = xml_doc.load_buffer_inplace((char*)res.body.data(), res.body.length());

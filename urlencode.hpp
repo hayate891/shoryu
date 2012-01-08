@@ -24,7 +24,7 @@ struct PathFilter
 	}
 };
 
-// expected UTF-8 string
+// UTF-8 string expected
 template<typename Func>
 std::string urlencode(const std::string& str, Func& filter = Func())
 {

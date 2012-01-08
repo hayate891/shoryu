@@ -7,7 +7,10 @@
 BOOST_AUTO_TEST_SUITE( net )
 	BOOST_AUTO_TEST_CASE( test_local_router )
 	{
-		std::string value = net::urlencode<GenericFilter>("àáûðvalg!+");
+		url test1 = "ftp://user:pass@abc.de.ru/path?abc=cba&t34=43t#anchor!";
+		url test2 = "192.168.0.1:7500";
+
+		std::string value = net::urldecode(net::urlencode<GenericFilter>("àáûðvalg!+"));
 
 		boost::asio::io_service ios;
 		using namespace net;

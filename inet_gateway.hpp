@@ -23,8 +23,6 @@ struct port_mapping
 };
 
 // Internet gateway device is an UPNP device for port-forwarding
-
-
 struct inet_gateway
 {
 	typedef url url;
@@ -87,7 +85,8 @@ struct inet_gateway
 	bool get_external_ip(std::string& ip)
 	{
 		request_type upnp_req = { control_url , service_type, "GetExternalIPAddress" };
-		if(response_type res = execute_request(upnp_req))
+		response_type res;
+		if(execute_request(upnp_req, res) && res)
 			ip = res.vars["NewExternalIPAddress"];
 		else
 			return false;
@@ -105,7 +104,8 @@ struct inet_gateway
 		upnp_req.params["NewLeaseDuration"] = boost::lexical_cast<std::string>(mapping.lease_duration);
 		upnp_req.params["NewPortMappingDescription"] = mapping.description;
 
-		if(response_type res = execute_request(upnp_req))
+		response_type res;
+		if(execute_request(upnp_req, res) && res)
 			return true;
 		else
 			return false;
@@ -119,7 +119,8 @@ struct inet_gateway
 		
 		std::string str = boost::lexical_cast<std::string>(upnp_req);
 
-		if(response_type res = execute_request(upnp_req))
+		response_type res;
+		if(execute_request(upnp_req, res) && res)
 		{
 			mapping.enabled = boost::lexical_cast<unsigned char>(res.vars["NewEnabled"]) != 0;
 			mapping.description = res.vars["NewPortMappingDescription"];
@@ -139,7 +140,8 @@ struct inet_gateway
 		upnp_req.params["NewProtocol"] = boost::to_upper_copy(mapping.protocol);
 		upnp_req.params["NewRemoteHost"] = "";
 
-		if(response_type res = execute_request(upnp_req))
+		response_type res;
+		if(execute_request(upnp_req, res) && res)
 			return true;
 		else
 			return false;

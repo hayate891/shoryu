@@ -4,24 +4,16 @@
 namespace net
 {
 // TODO: write accept<RequestType>() method - useful for servers (using iostream+acceptor)
-template<typename RequestType>
-typename RequestType::response_type execute_request(const RequestType& request)
+template<typename RequestType, typename ResponseType>
+bool execute_request(const RequestType& request, ResponseType& response)
 {
-	typedef typename RequestType::response_type response_type;
 	typedef typename boost::asio::ip::tcp::iostream iostream;
 
 	const url& url = request.url;
 	std::string port = url.port ? boost::lexical_cast<std::string>(url.port) : url.protocol;
 	iostream stream(url.host, port);
-	if(!stream)
-		throw std::exception();
-	stream << request;
-
-	response_type response;
-	if(stream >> response)
-		return response;
-	else
-		throw std::exception();
+	
+	return stream && (stream << request) && (stream >> response);
 }
 
 }
