@@ -65,7 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="discover.hpp" />
+    <ClInclude Include="upnp_device_finder.hpp" />
     <ClInclude Include="execute_request.hpp" />
     <ClInclude Include="http_request.hpp" />
     <ClInclude Include="http_response.hpp" />

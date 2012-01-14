@@ -33,9 +33,6 @@
     <ClInclude Include="parameter_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="discover.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="upnp_request.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -53,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="pugixml\pugixml.hpp">
       <Filter>Header Files\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="upnp_device_finder.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

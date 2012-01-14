@@ -5,6 +5,6 @@ Features (in progress)
 * UPNP port forwarding
 * UDP hole punching helper
 * Ability to create simple custom TCP-based request/responce protocols
-* Everything is synchronous for the ease of use
+* Punycode/Internation Domain Names support in URLs
 
 NOTE: Library's name is subject to change.

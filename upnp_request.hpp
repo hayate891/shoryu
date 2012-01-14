@@ -10,9 +10,7 @@ namespace net
 {
 struct upnp_request
 {
-	typedef upnp_response response_type;
 	url url;
-
 	std::string service_type;
 	std::string action;
 	parameter_map params;

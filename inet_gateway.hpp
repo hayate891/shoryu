@@ -25,9 +25,8 @@ struct port_mapping
 // Internet gateway device is an UPNP device for port-forwarding
 struct inet_gateway
 {
-	typedef url url;
 	typedef upnp_request request_type;
-	typedef upnp_request::response_type response_type;
+	typedef upnp_response response_type;
 	typedef boost::asio::ip::tcp protocol_type;
 
 	url control_url;
@@ -56,6 +55,7 @@ struct inet_gateway
 			return false;
 		return true;
 	}
+
 	bool parse_info(const url& base_url, const std::string& xml)
 	{
 		pugi::xml_document xml_doc;
@@ -94,6 +94,8 @@ struct inet_gateway
 	}
 	bool add(const port_mapping& mapping)
 	{
+		// TODO: check required fields
+
 		request_type upnp_req = { control_url , service_type, "AddPortMapping" };
 		upnp_req.params["NewExternalPort"] = boost::lexical_cast<std::string>(mapping.external_port);
 		upnp_req.params["NewProtocol"] = boost::to_upper_copy(mapping.protocol);
@@ -112,6 +114,8 @@ struct inet_gateway
 	}
 	bool find(port_mapping& mapping)
 	{
+		// TODO: check required fields
+
 		request_type upnp_req = { control_url , service_type, "GetSpecificPortMappingEntry" };
 		upnp_req.params["NewExternalPort"] = boost::lexical_cast<std::string>(mapping.external_port);
 		upnp_req.params["NewProtocol"] = boost::to_upper_copy(mapping.protocol);
@@ -135,6 +139,8 @@ struct inet_gateway
 
 	bool remove(const port_mapping& mapping)
 	{
+		// TODO: check required fields
+
 		request_type upnp_req = { control_url , service_type, "DeletePortMapping" };
 		upnp_req.params["NewExternalPort"] = boost::lexical_cast<std::string>(mapping.external_port);
 		upnp_req.params["NewProtocol"] = boost::to_upper_copy(mapping.protocol);
