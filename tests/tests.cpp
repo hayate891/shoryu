@@ -1,19 +1,24 @@
 #include <boost/asio.hpp>
-#include "upnp_device_finder.hpp"
-#include "inet_gateway.hpp"
+#include "../upnp_device_finder.hpp"
+#include "../inet_gateway.hpp"
+#include "../encoding.hpp"
 #define BOOST_TEST_MODULE net
 #include <boost/test/unit_test.hpp>
+
+// TODO: write more tests already!
+// TODO: make a specialization of boost::asio::iostream that can handle all protocols universally
 
 BOOST_AUTO_TEST_SUITE( net )
 	BOOST_AUTO_TEST_CASE( test_local_router )
 	{
+		using namespace net;
+
 		url test1 = "ftp://user:pass@abc.de.ru/path?abc=cba&t34=43t#anchor!";
 		url test2 = "192.168.0.1:7500";
 
-		std::string value = net::urldecode(net::urlencode<GenericFilter>("àáûðvalg!+"));
+		std::string value = net::urldecode(net::urlencode("àáûðvalg!+"));
 
 		boost::asio::io_service ios;
-		using namespace net;
 		upnp_device_finder<inet_gateway> f(ios);
 		f.start();
 		f.async_find([&f](inet_gateway& device, const boost::system::error_code& ec) {

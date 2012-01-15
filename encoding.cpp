@@ -1,36 +1,17 @@
-#pragma once
-
-#include <string>
+#include "encoding.hpp"
 #include <algorithm>
 #include <boost/xpressive/xpressive.hpp>
 
-// TODO: move this to /detail
 namespace net
 {
+// TODO: implement punycode
+// TODO: support wstrings and iterators
 
-struct GenericFilter
-{
-	bool operator()(const char& c)
-	{
-		return std::isalnum(c, std::locale::classic());
-	}
-};
-
-struct PathFilter
-{
-	bool operator()(const char& c)
-	{
-		return std::isalnum(c, std::locale::classic()) || c == '/';
-	}
-};
-
-// UTF-8 string expected
-template<typename Func>
-std::string urlencode(const std::string& str, Func& filter = Func())
+std::string urlencode(const std::string& str)
 {
 	std::ostringstream oss;
 	for (auto it = str.begin(); it != str.end(); ++it) {
-		if(filter(*it))
+		if(std::isalnum(*it, std::locale::classic()))
 			oss << *it;
 		else
 			oss << '%' << std::setw(2) << std::setfill('0') << std::uppercase << std::hex
@@ -61,4 +42,17 @@ std::string urldecode(const std::string& str)
 	sregex decoding_regex = '%' >> (s1= repeat<2>(xdigit) );
 	return regex_replace( str, decoding_regex, format);
 }
+
+// http://tools.ietf.org/html/rfc3492
+// WHY IS IT SO DAMN COMPLICATED?
+std::string punycode(const std::string& str)
+{
+	return str;
+}
+
+std::string punydecode(const std::string& str)
+{
+	return str;
+}
+
 }

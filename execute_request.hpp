@@ -1,4 +1,9 @@
 #pragma once
+#include <string>
+
+#include <boost/asio.hpp>
+#include <boost/lexical_cast.hpp>
+
 #include "url.hpp"
 
 namespace net

@@ -76,11 +76,19 @@
     <ClInclude Include="upnp_request.hpp" />
     <ClInclude Include="upnp_response.hpp" />
     <ClInclude Include="url.hpp" />
-    <ClInclude Include="urlencode.hpp" />
+    <ClInclude Include="encoding.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="encoding.cpp" />
+    <ClCompile Include="http_request.cpp" />
+    <ClCompile Include="http_response.cpp" />
+    <ClCompile Include="inet_gateway.cpp" />
+    <ClCompile Include="parameter_map.cpp" />
     <ClCompile Include="pugixml\pugixml.cpp" />
-    <ClCompile Include="tests.cpp" />
+    <ClCompile Include="tests\tests.cpp" />
+    <ClCompile Include="upnp_request.cpp" />
+    <ClCompile Include="upnp_response.cpp" />
+    <ClCompile Include="url.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

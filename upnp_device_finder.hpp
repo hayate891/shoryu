@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-
 #include <boost/asio.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/bind.hpp>
