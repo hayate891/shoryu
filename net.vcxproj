@@ -65,6 +65,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="binary_mode.hpp" />
+    <ClInclude Include="hash_value.hpp" />
+    <ClInclude Include="rtt_statistics.hpp" />
+    <ClInclude Include="semaphore.hpp" />
     <ClInclude Include="upnp_device_finder.hpp" />
     <ClInclude Include="execute_request.hpp" />
     <ClInclude Include="http_request.hpp" />
